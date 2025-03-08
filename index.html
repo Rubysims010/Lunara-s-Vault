@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Products Website By Lunara's Vault</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Diphylleia&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Diphylleia&display=swap" rel="stylesheet">
+
+<style>
+    /* Global Styles */
+    body {
+        font-family: Diphylleia;
+        background-color: #11124a;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1, h2 {
+        color: #11124a;
+        font-weight: bold;
+        font-size: xx-large;
+    }
+
+    /* Navigation Bar Styles */
+    .topnav {
+        overflow: hidden;
+        background-color: #11124a;
+    }
+
+    .topnav a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 20px;
+        border: 3px solid #f2f2f2;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    .topnav a:hover {
+        background-color: #9AA4EC;
+        color: #10134a;
+    }
+
+    .topnav a.active {
+        background-color: #FF77FF;
+        color: #660000;
+    }
+
+    .topnav .icon {
+        display: none;
+    }
+
+    .topnav .cart-icon {
+        color: #f2f2f2; /* Match the color theme */
+        font-size: 20px;
+        padding: 14px 16px;
+        text-decoration: none;
+        border: 3px solid #f2f2f2;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    .topnav .cart-icon:hover {
+        background-color: #9AA4EC;
+        color: #10134a;
+    }
+
+    @media screen and (max-width: 600px) {
+        .topnav a:not(:first-child) {display: none;}
+        .topnav a.icon {
+            float: right;
+            display: block;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .topnav.responsive {position: relative;}
+        .topnav.responsive .icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        .topnav.responsive a {
+            float: none;
+            display: block;
+            text-align: left;
+        }
+    }
+
+    /* Banner Section Styles */
+    #banner {
+        background-color: #0f1048;
+        color: #fff;
+        text-align: center;
+        padding: 100px 20px;
+    }
+
+    #banner h1 {
+        margin-bottom: 10px;
+    }
+
+    #banner p {
+        font-size: 18px;
+    }
+
+    /* Section Styles */
+    section {
+        padding: 40px 20px;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    section#featured-products {
+        background-color: #FF77FF;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    section#about-me {
+        background-color: #FF77FF;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    section#contact-me {
+        background-color: #FF77FF;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    /* Smooth Scroll */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Slider Container */
+    .slider-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        max-width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+        padding: 20px 0;
+    }
+
+    /* Slider */
+    .slider {
+        display: flex;
+        transition: transform 0.3s ease-in-out;
+        width: 100%;
+    }
+
+    /* Slide */
+    .slide {
+        flex: 0 0 100%;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .slide img {
+        max-width: 50%;
+        margin: 0 auto;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .slide p {
+        margin-top: 10px;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .slide img:hover {
+        transform: scale(1.05); /* Slight zoom effect on hover */
+    }
+
+    /* Buttons */
+    .slider-button {
+        background-color: #0f1048;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+    }
+
+    .slider-button.prev {
+        left: 20px;
+    }
+
+    .slider-button.next {
+        right: 20px;
+    }
+
+    .slider-button:hover {
+        background-color: #FEA3AA;
+        color: #11124a;
+    }
+
+    /* Dots Container */
+    .slider-dots {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .slider-dots .dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin: 0 5px;
+        background-color: #ccc;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .slider-dots .dot.active {
+        background-color: #0f1048; /* Highlight active dot */
+    }
+
+    p {font-weight: bolder; font-size: x-large;}
+
+    /* About Me Section */
+    #about-me {
+        background-color: #75a9d1;
+        padding: 50px 20px;
+    }
+
+    .about-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    /* Left Half */
+    .about-left {
+        flex: 1;
+        max-width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0f5f8;
+    }
+
+    .about-left img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    /* Right Half */
+    .about-right {
+        flex: 1;
+        max-width: 50%;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        background-color: #f9f9f9;
+    }
+
+    .about-right h2 {
+        margin-bottom: 15px;
+        font-size: 24px;
+        color: #0f1048;
+    }
+
+    .about-right p {
+        font-size: 16px;
+        color: #333;
+        line-height: 1.5;
+    }
+
+    /* Contact Me Section */
+    #contact-me {
+        background-color: #75a9d1;
+        padding: 50px 20px;
+        color: #fff;
+    }
+
+    .contact-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: #f0f5f8;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    /* Contact Form */
+    .contact-form {
+        flex: 1;
+        max-width: 50%;
+        padding: 30px;
+    }
+
+    .contact-form h2 {
+        margin-bottom: 15px;
+        color: #0f1048;
+    }
+
+    .contact-form label {
+        display: block;
+        margin: 10px 0 5px;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    .contact-form button {
+        background-color: #0f1048;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .contact-form button:hover {
+        background-color: #FEA3AA;
+    }
+
+    /* Social Links */
+    .social-links {
+        flex: 1;
+        max-width: 50%;
+        padding: 30px;
+        text-align: center;
+    }
+
+    .social-links h3 {
+        margin-bottom: 15px;
+        color: #0f1048;
+    }
+
+    .social-links .social-icon {
+        display: inline-block;
+        margin: 0 10px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .social-links .social-icon img {
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+    }
+
+    .social-links .social-icon:hover img {
+        transform: scale(1.5);
+    }
+
+</style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="topnav" id="myTopnav">
+        <a href="index.html" class="active">Home</a>
+        <a href="#featured-products">Products</a>
+        <a href="#about-me">About Me</a>
+        <a href="#contact-me">Contact Us</a>
+        <a href="Cart.html" class="cart-icon"><i class="fa fa-shopping-cart"></i></a> <!-- Cart Icon -->
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+
+    <img src="Border 5.PNG" style="height:70%; width: 70%; margin-top: 20px; padding-left: 15%; padding-bottom: none;">
+   
+    <!-- Banner Section -->
+    <section id="banner">
+        <img src="Lunara’s Vault.png" style="width: 100%; height: 25%">
+        <h1 style="color: #f2f2f2;">Welcome to Lunara’s Vault</h1>
+        <p>Your one-stop shop for amazing digital products.</p>
+    </section>
+
+    <img src="Border 5.PNG" style="height:70%; width: 70%; margin-top: 20px; padding-left: 15%; padding-bottom: 50px;">
+
+    <!-- Featured Products Section -->
+    <section id="featured-products">
+        <h2>Featured Products</h2>
+        <p>Check out our top products!</p>
+        <div class="slider-container">
+          <button class="slider-button prev">&lt;</button>
+          <div class="slider">
+              <div class="slide">
+                  <img src="Chrishtmas Collection.png" alt="Product 1">
+                  <p style="font-weight: bolder; font-size: x-large;">Chrishtmas Collection Seamless Patterns</p>
+              </div>
+              <div class="slide">
+                  <img src="Gift Wrap Theme Collection.png" alt="Product 2">
+                  <p style="font-weight: bolder; font-size: x-large;">Gift Wrap Theme Collection Seamless Patterns</p>
+              </div>
+              <div class="slide">
+                  <img src="Minimal Pattern Collection.png" alt="Product 3">
+                  <p style="font-weight: bolder; font-size: x-large;">Minimal Pattern Collection Seamless Patterns</p>
+              </div>
+              <div class="slide">
+                  <img src="Pink Floral Pattern Collection.png" alt="Product 4">
+                  <p style="font-weight: bolder; font-size: x-large;">Pink Floral Pattern Collection Seamless Patterns</p>
+              </div>
+              <div class="slide">
+                <img src="Kitty Sticker Pack of 9 Collection 1.png" alt="Product 5">
+                <p style="font-weight: bolder; font-size: x-large;">Kitty Sticker Pack of 9</p>
+            </div>
+            <div class="slide">
+              <img src="Kitty Sticker Pack of 9 Collection 2.png" alt="Product 6">
+              <p style="font-weight: bolder; font-size: x-large;">Kitty Sticker Pack of 9</p>
+          </div>
+          <div class="slide">
+            <img src="Kitty Sticker Pack of 9 Collection 3.png" alt="Product 7">
+            <p style="font-weight: bolder; font-size: x-large;">Kitty Sticker Pack of 9</p>
+        </div>
+        <div class="slide">
+            <img src="Kitty Sticker Pack of 8 Collection 4.png" alt="Product 8">
+            <p style="font-weight: bolder; font-size: x-large;">Kitty Sticker Pack of 8</p>
+        </div>
+        <div class="slide">
+            <img src="Puppy Sticker Pack of 9 Collection 1.png" alt="Product 9">
+            <p style="font-weight: bolder; font-size: x-large;">Puppy Sticker Pack of 9</p>
+        </div>
+        <div class="slide">
+            <img src="Puppy Sticker Pack of 6 Collection 2.png" alt="Product 10">
+            <p style="font-weight: bolder; font-size: x-large;">Puppy Sticker Pack of 6</p>
+        </div>
+        <div class="slide">
+            <img src="Rose Sticker Pack of 6.png" alt="Product 11">
+            <p style="font-weight: bolder; font-size: x-large;">Rose Sticker Pack of 6</p>
+        </div>
+        <div class="slide">
+            <img src="Smart Phone Sticker Pack of 3.png" alt="Product 12">
+            <p style="font-weight: bolder; font-size: x-large;">Smart Phone Sticker Pack of 3</p>
+        </div>
+          </div>
+          <button class="slider-button next">&gt;</button>
+      </div>
+      <div class="slider-dots"></div>
+      
+      <a href="Products.html" style="display: inline-block; height: 30px; width: 120px; margin-top: 20px; background-color: #11124a; font-family: 'Times New Roman', Times, serif; color: #f2f2f2; font-size: larger; text-align: center; line-height: 30px; border-radius: 8px; text-decoration: none; border: 2px solid #f2f2f2;">
+        Shop Now
+    </a>
+    
+    </section>
+
+    <img src="Border 5.PNG" style="height:70%; width: 70%; margin-top: 20px; padding-left: 15%; padding-bottom: 50px;">
+
+    <!-- About Me Section -->
+    <section id="about-me">
+        <h2>About Me</h2>
+          <div class="about-container">
+              <div class="about-left">
+                  <img src="Logo.jpg" alt="About Me Image">
+              </div>
+              <div class="about-right">
+                  <h2>About Me</h2>
+                  <p>
+                      Hello! I am a new developer Ruby, who loves art and creating art.
+                      I’m a freelance digital creator passionate about transforming ideas into visually captivating designs. With a focus on creativity and innovation, I craft digital art, seamless patterns, branding elements, and more — blending aesthetics with purpose. My work reflects a balance of minimalism, elegance, and originality, tailored to inspire and connect. Every project is an opportunity to push creative boundaries and bring unique visions to life.
+                      I hope you like my products. Please try to provide your useful feedback so that I can develop much more than this level. 
+                  Thanks a lot to the person reading this!!
+                </p>
+              </div>
+          </div>
+      </section>
+      
+    </section>
+
+    <img src="Border 5.PNG" style="height:70%; width: 70%; margin-top: 20px; padding-left: 15%; padding-bottom: 50px;">
+
+    <!-- Contact Me Section -->
+    <section id="contact-me">
+        <h2>Contact Me</h2>
+        <p style="font-weight: bolder; font-size: x-large;color:#11124a">If you have any questions, feel free to get in touch!</p>
+        <div class="contact-container">
+          <div class="contact-form">
+              <h2>Contact Me</h2>
+              <form action="mailto:simonsruby18@gmail.com" method="post" enctype="text/plain">
+                  <label for="name">Name</label>
+                  <input type="text" id="name" name="name" placeholder="Your name" required>
+                  
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" placeholder="Your email" required>
+                  
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" placeholder="Your message" required></textarea>
+                  
+                  <button type="submit">Send Message</button>
+              </form>
+          </div>
+          <div class="social-links">
+              <h3>Connect with Me</h3>
+              <a href="https://www.facebook.com" target="_blank" class="social-icon">
+                  <img src="Facebook Logo.png" alt="Facebook">
+              </a>
+              <a href="https://www.instagram.com" target="_blank" class="social-icon">
+                  <img src="Instagram Logo.png" alt="Instagram">
+              </a>
+              <a href="https://www.google.com" target="_blank" class="social-icon">
+                  <img src="Google Logo.png" alt="Google">
+              </a>
+              <a href="https://in.pinterest.com/" target="_blank" class="social-icon">
+                <img src="Pinterest Logo.png" alt="Pinterest">
+            </a>
+          </a>
+          </div>
+      </div>
+    </section>
+
+    <img src="Border 5.PNG" style="height:70%; width: 70%; margin-top: 20px; padding-left: 15%; padding-bottom: 50px;">
+
+    <script>
+        <!-- Script for Navigation Toggle -->
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+
+        // Slide Gallery Script
+        document.addEventListener("DOMContentLoaded", () => {
+            const slider = document.querySelector(".slider");
+            const slides = document.querySelectorAll(".slide");
+            const prevButton = document.querySelector(".slider-button.prev");
+            const nextButton = document.querySelector(".slider-button.next");
+            const dotsContainer = document.querySelector(".slider-dots");
+
+            let currentIndex = 0;
+
+            // Create dots dynamically based on the number of slides
+            slides.forEach((_, index) => {
+                const dot = document.createElement("span");
+                dot.classList.add("dot");
+                if (index === currentIndex) dot.classList.add("active");
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = document.querySelectorAll(".dot");
+
+            function updateSliderPosition() {
+                slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+                updateDots();
+            }
+
+            function updateDots() {
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle("active", index === currentIndex);
+                });
+            }
+
+            prevButton.addEventListener("click", () => {
+                currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                updateSliderPosition();
+            });
+
+            nextButton.addEventListener("click", () => {
+                currentIndex = (currentIndex + 1) % slides.length;
+                updateSliderPosition();
+            });
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener("click", () => {
+                    currentIndex = index;
+                    updateSliderPosition();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
